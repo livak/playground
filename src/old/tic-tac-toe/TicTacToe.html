@@ -1,0 +1,317 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>TicTacToe</title>
+    <style>
+        body {
+            font-size: .85em;
+            font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+            color: #232323;
+            background-color: #fff;
+        }
+
+        header, footer, nav, section {
+            display: block;
+        }
+
+
+        /* Styles for basic forms
+-----------------------------------------------------------*/
+        fieldset {
+            border: 1px solid #ddd;
+            padding: 0 1.4em 1.4em 1.4em;
+            margin: 0 0 1.5em 0;
+        }
+
+        legend {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        textarea {
+            min-height: 75px;
+        }
+
+        .editor-label {
+            margin: 1em 0 0 0;
+        }
+
+        .editor-field {
+            margin: 0.5em 0 0 0;
+        }
+
+
+        /* Styles for validation helpers
+-----------------------------------------------------------*/
+        .field-validation-error {
+            color: #f00;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        .input-validation-error {
+            border: 1px solid #f00;
+            background-color: #fee;
+        }
+
+        .validation-summary-errors {
+            font-weight: bold;
+            color: #f00;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+
+        /*------------------------------------------------*/
+
+        table {
+        }
+
+        #game table, #game td {
+            border: 1px solid black;
+            font-size: 22pt;
+            text-align: center;
+        }
+
+        #game td {
+            width: 50px;
+            height: 50px;
+        }
+
+        td.winner {
+            background-color: red;
+        }
+
+        button.hidden {
+            display: none;
+        }
+
+        .currentPlayer {
+            border: 1px solid red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+
+            //****************************************************
+            //                    Init
+            //****************************************************
+            var m = new Array(3);
+            for (var i = 0; i < 3; i++) {
+                m[i] = new Array(3);
+            }
+
+            var $fields = $(".field").each(function (index, field) {
+                var $field = $(field);
+                m[$field.attr("i")][$field.attr("j")] = $field;
+            });
+
+            var currentSign = "X";
+            var winner = "";
+            var fieldFilledCouter = 0;
+
+            var $player1Score = $("#player1Score");
+            var $player2Score = $("#player2Score");
+            var $player1Sign = $("#player1Sign");
+            var $player2Sign = $("#player2Sign");
+
+            //****************************************************
+            //                     Click
+            //****************************************************
+
+            $("#game td").click(function () {
+                var $this = $(this);
+                if (winner == "" && $this.text() == "") {
+
+                    var i = $this.attr("i");
+                    var j = $this.attr("j");
+                    $this.text(currentSign);
+                    checkWinner(i, j);
+                }
+            });
+
+            var $btnNewGame = $("#newGame").click(function () {
+                newGame(this);
+            });
+
+            $("#reset").click(function () {
+                $player1Score.text(0);
+                $player2Score.text(0);
+                currentSign = "X"
+                $player1Sign.parent().addClass("currentPlayer");
+                $player2Sign.parent().removeClass("currentPlayer");
+
+                newGame();
+            });
+
+
+            function newGame() {
+                $fields.text("");
+                fieldFilledCouter = 0;
+                $fields.removeClass("winner");
+                winner = "";
+                $btnNewGame.hide();
+            }
+
+
+            //****************************************************
+            //                    Check Winner
+            //****************************************************
+
+            function checkWinner(i, j) {
+
+                checkRow(i);
+                checkCulomn(j);
+                if (i == j) checkDiagonalRight();
+                if ((parseInt(i) + parseInt(j)) == (m.length - 1)) checkDiagonalLeft();
+
+                //change sign
+                if (currentSign == "X") currentSign = "O";
+                else currentSign = "X";
+
+                $player1Sign.parent().toggleClass("currentPlayer");
+                $player2Sign.parent().toggleClass("currentPlayer");
+
+                fieldFilledCouter++;
+                if (fieldFilledCouter == 9) {
+                    fieldFilledCouter = 0;
+                    $btnNewGame.show();
+                }
+
+            }
+
+            function checkRow(i) {
+                var counter = 0;
+                for (var b = 0; b < m.length; b++) {
+                    if (currentSign == m[i][b].text()) {
+                        counter++;
+                    }
+                }
+                if (counter == m.length) {
+                    setWinner();
+                    for (var b = 0; b < m.length; b++) {
+                        $(m[i][b]).addClass("winner");
+                    }
+
+                }
+            }
+            function checkCulomn(j) {
+                counter = 0;
+                for (var b = 0; b < m.length; b++) {
+                    if (currentSign == m[b][j].text()) {
+                        counter++;
+                    }
+                }
+                if (counter == m.length) {
+                    setWinner();
+                    for (var b = 0; b < m.length; b++) {
+                        $(m[b][j]).addClass("winner");
+                    }
+                }
+            }
+            function checkDiagonalRight() {
+                counter = 0;
+                for (var b = 0; b < m.length; b++) {
+                    if (currentSign == m[b][b].text()) {
+                        counter++;
+                    }
+                }
+                if (counter == m.length) {
+                    setWinner();
+                    for (var b = 0; b < m.length; b++) {
+                        $(m[b][b]).addClass("winner");
+                    }
+                }
+            }
+            function checkDiagonalLeft() {
+                counter = 0;
+                for (var b = 0; b < m.length; b++) {
+                    if (currentSign == m[b][m.length - b - 1].text()) {
+                        counter++;
+                    }
+                }
+                if (counter == m.length) {
+                    setWinner();
+                    for (var b = 0; b < m.length; b++) {
+                        $(m[b][m.length - b - 1]).addClass("winner");
+                    }
+                }
+            }
+
+            function setWinner() {
+                winner = currentSign;
+
+                if ($player1Sign.text() == currentSign) {
+                    $player1Score.text(parseInt($player1Score.text()) + 1);
+                }
+                else {
+                    $player2Score.text(parseInt($player2Score.text()) + 1);
+                }
+                $btnNewGame.show();
+            }
+        });
+    </script>
+</head>
+<body>
+    <button id="reset">
+        Reset Score
+    </button>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <input id="player1Name" type="text" value="Player1" />
+                </td>
+                <td>
+                    <input id="player2Name" type="text" value="Player2" />
+                </td>
+            </tr>
+            <tr>
+                <td class="currentPlayer">
+                    <span id="player1Sign">X</span>
+                </td>
+                <td>
+                    <span id="player2Sign">O</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Score:
+                </td>
+                <td>
+                    <span id="player1Score">0</span>:<span id="player2Score">0</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <table id="game">
+        <tbody>
+            <tr>
+                <td class="field" i="0" j="0"></td>
+                <td class="field" i="0" j="1"></td>
+                <td class="field" i="0" j="2"></td>
+            </tr>
+            <tr>
+                <td class="field" i="1" j="0"></td>
+                <td class="field" i="1" j="1"></td>
+                <td class="field" i="1" j="2"></td>
+            </tr>
+            <tr>
+                <td class="field" i="2" j="0"></td>
+                <td class="field" i="2" j="1"></td>
+                <td class="field" i="2" j="2"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button id="newGame" class="hidden"> New game</button>
+</body>
+</html>

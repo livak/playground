@@ -53,7 +53,8 @@ namespace IoT.FileStorage
             using (var stream = fileInfo.OpenWrite())
             using (var writer = new StreamWriter(stream))
             {
-                return writer.WriteAsync(json);
+                stream.SetLength(json.Length); // stream is overwritten but length need to be shrinked manually
+                return writer.WriteLineAsync(json);
             }
 
         }

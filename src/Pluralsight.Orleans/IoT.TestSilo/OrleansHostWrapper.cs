@@ -139,7 +139,7 @@ namespace IoT.TestSilo
             var config = ClusterConfiguration.LocalhostPrimarySilo();
             config.AddMemoryStorageProvider();
             config.Globals.RegisterStorageProvider<FileStorageProvider>("file", 
-                new Dictionary<string, string>() { { "directory", @"C:\dev\store" } });
+                new Dictionary<string, string>() { { "directory", @"C:\_dev\store" } });
             siloHost = new SiloHost(siloName, config);
 
             if (deploymentId != null)

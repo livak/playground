@@ -30,17 +30,30 @@ namespace IoT.TestSilo
             //       This is the place your custom logic, for example calling client logic
             //       or initializing an HTTP front end for accepting incoming requests.
 
-            Console.WriteLine("Orleans Silo is running.\nPress Enter to terminate...");
-            Console.ReadLine();
+            Console.WriteLine("Orleans Silo is running.\nEnter exit to terminate...");
 
+            Console.ReadLine();
             var grain = GrainClient.GrainFactory.GetGrain<IDeviceGrain>(1);
 
-            while (true)
-            {
-                grain.SetTemperature(double.Parse(Console.ReadLine()));
-            }
+            string line = null;
 
-            hostDomain.DoCallBack(ShutdownSilo);
+            while (line != "exit")
+            {
+                line = Console.ReadLine();
+                double temperature;
+                if (double.TryParse(line, out temperature))
+                {
+                    grain.SetTemperature(temperature);
+                }
+                else if (line == "exit")
+                {
+                    hostDomain.DoCallBack(ShutdownSilo);
+                }
+                else
+                {
+                    Console.WriteLine("Not supported command");
+                }
+            }
         }
 
         static void InitSilo(string[] args)

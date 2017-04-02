@@ -1,7 +1,5 @@
 using System;
 using System.Net;
-using System.Threading.Tasks;
-
 using Orleans.Runtime.Configuration;
 using Orleans.Runtime.Host;
 using IoT.FileStorage;

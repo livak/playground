@@ -1,6 +1,4 @@
 using System;
-using System.Threading.Tasks;
-
 using Orleans;
 using Orleans.Runtime.Configuration;
 using IoT.GrainInterfaces;
@@ -26,8 +24,7 @@ namespace IoT.TestSilo
                 AppDomainInitializerArguments = args,
             });
 
-            var config = ClientConfiguration.LocalhostSilo();
-            GrainClient.Initialize(config);
+            GrainClient.Initialize(); // default OrleansClientConfiguration.xml
 
             // TODO: once the previous call returns, the silo is up and running.
             //       This is the place your custom logic, for example calling client logic
@@ -59,9 +56,7 @@ namespace IoT.TestSilo
             {
                 line = Console.ReadLine();
                 var parts = line.Split(',');
-                int res;
-                double temperature;
-                if (parts.Length == 2 && int.TryParse(parts[0], out res) && double.TryParse(parts[1], out temperature))
+                if (parts.Length == 2 && int.TryParse(parts[0], out int res) && double.TryParse(parts[1], out double temperature))
                 {
                     grain.Decode(line);
                 }

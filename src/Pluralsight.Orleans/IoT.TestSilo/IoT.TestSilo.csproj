@@ -7,7 +7,6 @@
     <None Remove="*.log" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Orleans.OrleansCodeGenerator" Version="1.4.1" />
     <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="1.4.1" />
     <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="1.4.1" />
   </ItemGroup>
@@ -15,5 +14,13 @@
     <ProjectReference Include="..\IoT.FileStorage\IoT.FileStorage.csproj" />
     <ProjectReference Include="..\IoT.GrainClasses\IoT.GrainClasses.csproj" />
     <ProjectReference Include="..\IoT.GrainInterfaces\IoT.GrainInterfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="OrleansClientConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OrleansConfiguration.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

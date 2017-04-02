@@ -25,13 +25,18 @@ namespace IoT.GrainClasses
 
         Task Callback(object callbackState)
         {
-            double value = temperatures.Any() ? temperatures.Values.Average() : 0;
+            double value = GetAverageTemperature();
             if (value > 100)
             {
                 observers.Notify(x => x.HighTemperature(value, this.GetPrimaryKeyString(), temperatures.Count));
             }
 
             return TaskDone.Done;
+        }
+
+        private double GetAverageTemperature()
+        {
+            return temperatures.Any() ? temperatures.Values.Average() : 0;
         }
 
         public Task SetTemperature(TemperatureReading reading)
@@ -50,6 +55,12 @@ namespace IoT.GrainClasses
         {
             observers.Unsubscribe(observer);
             return TaskDone.Done;
+        }
+
+        public Task<double> GetTemperature()
+        {
+            return Task.FromResult(GetAverageTemperature());
+
         }
     }
 }

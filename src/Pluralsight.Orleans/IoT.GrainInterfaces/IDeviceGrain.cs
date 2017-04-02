@@ -8,6 +8,7 @@ namespace IoT.GrainInterfaces
     /// </summary>
 	public interface IDeviceGrain : IGrainWithIntegerKey
     {
+        Task<double> GetTemperature();
         Task SetTemperature(double value);
         Task JoinSystem(string name);
     }

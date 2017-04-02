@@ -23,6 +23,11 @@ namespace IoT.GrainClasses
 
         }
 
+        public Task<double> GetTemperature()
+        {
+            return Task.FromResult(State.LastValue);
+        }
+
         public async Task JoinSystem(string name)
         {
             State.System = name;

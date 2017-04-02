@@ -7,6 +7,7 @@ namespace IoT.GrainInterfaces
 {
     public interface ISystemGrain : IGrainWithStringKey
     {
+        Task<double> GetTemperature();
         Task SetTemperature(TemperatureReading reading);
         Task Subscribe(ISystemObserver observer);
         Task UnSubscribe(ISystemObserver observer);

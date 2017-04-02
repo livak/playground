@@ -4,5 +4,5 @@ _ReSharper.*
 bin
 obj
 packages
-/src/Pluralsight.Orleans/IoT.TestSilo/*.log
-/.vs
+.vs
+*.log

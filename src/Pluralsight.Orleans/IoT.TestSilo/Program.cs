@@ -43,8 +43,6 @@ namespace IoT.TestSilo
                     .Wait();
             }
 
-
-
             var observer = GrainClient.GrainFactory.CreateObjectReference<ISystemObserver>(new SystemObserver()).Result;
 
             GrainClient.GrainFactory.GetGrain<ISystemGrain>(systemGrainName1).Subscribe(observer);

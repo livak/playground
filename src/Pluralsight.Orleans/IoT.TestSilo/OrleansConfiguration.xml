@@ -5,14 +5,22 @@
       <Provider Type="Orleans.Storage.MemoryStorage" Name="MemoryStore" />
       <Provider Type="IoT.FileStorage.FileStorageProvider" Name="FileStore" directory="C:\_dev\store" />
     </StorageProviders>
-    <SeedNode Address="localhost" Port="22222" />
+    <SeedNode Address="localhost" Port="11111" />
   </Globals>
   <Defaults>
-    <Networking Address="localhost" Port="22222" />
-    <ProxyingGateway Address="localhost" Port="40000" />
+    <Networking Address="localhost" Port="11111" />
+    <ProxyingGateway Address="localhost" Port="30000" />
     <Tracing DefaultTraceLevel="Info" TraceToConsole="true" TraceToFile="{0}-{1}.log" BulkMessageLimit="1000">
       <TraceLevelOverride LogPrefix="Application" TraceLevel="Info" />
     </Tracing>
     <Statistics MetricsTableWriteInterval="30s" PerfCounterWriteInterval="30s" LogWriteInterval="300s" WriteLogStatisticsToTable="true" StatisticsCollectionLevel="Info"/>
   </Defaults>
+  <Override Node="Primary">
+      <Networking Address="localhost" Port="11111" />
+      <ProxyingGateway Address="localhost" Port="30000" />
+    </Override>
+  <Override Node="Secondary">
+    <Networking Address="localhost" Port="11112" />
+    <ProxyingGateway Address="localhost" Port="30002" />
+  </Override>
 </OrleansConfiguration>

@@ -2,8 +2,6 @@ using System;
 using System.Net;
 using Orleans.Runtime.Configuration;
 using Orleans.Runtime.Host;
-using IoT.FileStorage;
-using System.Collections.Generic;
 
 namespace IoT.TestSilo
 {
@@ -134,11 +132,7 @@ namespace IoT.TestSilo
                 }
             }
 
-            var config = ClusterConfiguration.LocalhostPrimarySilo();
-            config.AddMemoryStorageProvider();
-            config.Globals.RegisterStorageProvider<FileStorageProvider>("file", 
-                new Dictionary<string, string>() { { "directory", @"C:\_dev\store" } });
-            siloHost = new SiloHost(siloName, config);
+            siloHost = new SiloHost(siloName);
 
             if (deploymentId != null)
                 siloHost.DeploymentId = deploymentId;

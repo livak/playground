@@ -15,7 +15,7 @@ namespace IoT.GrainClasses
     }
      
     [Reentrant]
-    [StorageProvider(ProviderName = "file")]
+    [StorageProvider(ProviderName = "FileStore")]
     public class DeviceGrain : Grain<IDeviceGrainState>, IDeviceGrain
     {
         public DeviceGrain()

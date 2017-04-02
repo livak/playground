@@ -33,17 +33,34 @@ namespace IoT.TestSilo
             Console.WriteLine("Orleans Silo is running.\nEnter exit to terminate...");
 
             Console.ReadLine();
-            var grain = GrainClient.GrainFactory.GetGrain<IDeviceGrain>(1);
+
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(0).JoinSystem("vhiacle1").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(1).JoinSystem("vhiacle1").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(2).JoinSystem("vhiacle1").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(3).JoinSystem("vhiacle1").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(4).JoinSystem("vhiacle1").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(5).JoinSystem("vhiacle1").Wait();
+
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(6 ).JoinSystem("vhiacle2").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(7 ).JoinSystem("vhiacle2").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(8 ).JoinSystem("vhiacle2").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(9 ).JoinSystem("vhiacle2").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(10).JoinSystem("vhiacle2").Wait();
+            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(11).JoinSystem("vhiacle2").Wait();
+
+            var grain = GrainClient.GrainFactory.GetGrain<IDecodeGrain>(1);
 
             string line = null;
 
             while (line != "exit")
             {
                 line = Console.ReadLine();
+                var parts = line.Split(',');
+                int res;
                 double temperature;
-                if (double.TryParse(line, out temperature))
+                if (parts.Length == 2 && int.TryParse(parts[0], out res) && double.TryParse(parts[1], out temperature))
                 {
-                    grain.SetTemperature(temperature);
+                    grain.Decode(line);
                 }
                 else if (line == "exit")
                 {

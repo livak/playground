@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Orleans;
 using Orleans.Runtime.Configuration;
 using IoT.GrainInterfaces;
+using IoT.TestSilo.Observers;
+using IoT.GrainInterfaces.Observers;
+using System.Linq;
 
 namespace IoT.TestSilo
 {
@@ -33,25 +36,25 @@ namespace IoT.TestSilo
             Console.WriteLine("Orleans Silo is running.\nEnter exit to terminate...");
 
             Console.ReadLine();
+            const string systemGrainName1 = "vehicle1";
+            const string systemGrainName2 = "vehicle2";
 
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(0).JoinSystem("vhiacle1").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(1).JoinSystem("vhiacle1").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(2).JoinSystem("vhiacle1").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(3).JoinSystem("vhiacle1").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(4).JoinSystem("vhiacle1").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(5).JoinSystem("vhiacle1").Wait();
+            foreach (var deviceGrainId in Enumerable.Range(1,11))
+            {
+                GrainClient.GrainFactory.GetGrain<IDeviceGrain>(deviceGrainId)
+                    .JoinSystem(deviceGrainId > 5 ? systemGrainName2 : systemGrainName1)
+                    .Wait();
+            }
 
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(6 ).JoinSystem("vhiacle2").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(7 ).JoinSystem("vhiacle2").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(8 ).JoinSystem("vhiacle2").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(9 ).JoinSystem("vhiacle2").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(10).JoinSystem("vhiacle2").Wait();
-            GrainClient.GrainFactory.GetGrain<IDeviceGrain>(11).JoinSystem("vhiacle2").Wait();
+
+
+            var observer = GrainClient.GrainFactory.CreateObjectReference<ISystemObserver>(new SystemObserver()).Result;
+
+            GrainClient.GrainFactory.GetGrain<ISystemGrain>(systemGrainName1).Subscribe(observer);
+            GrainClient.GrainFactory.GetGrain<ISystemGrain>(systemGrainName2).Subscribe(observer);
 
             var grain = GrainClient.GrainFactory.GetGrain<IDecodeGrain>(1);
-
             string line = null;
-
             while (line != "exit")
             {
                 line = Console.ReadLine();

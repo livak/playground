@@ -1,0 +1,43 @@
+[Lucian Wischik]
+ - https://blogs.msdn.microsoft.com/lucian/
+ - https://blogs.msdn.microsoft.com/lucian/tag/async/
+ - https://blogs.msdn.microsoft.com/lucian/2012/03/28/talk-async-part-1-the-message-loop-and-the-task-type/
+ - https://blogs.msdn.microsoft.com/lucian/2013/02/17/talk-async-part-2-for-architects-under-the-hood/
+[Stephen Toub] 
+ - https://blogs.msdn.microsoft.com/pfxteam/
+ - https://msdn.microsoft.com/en-us/magazine/hh456402.aspx
+ - https://blogs.msdn.microsoft.com/pfxteam/2012/03/24/should-i-expose-asynchronous-wrappers-for-synchronous-methods/
+ - https://blogs.msdn.microsoft.com/pfxteam/2012/04/13/should-i-expose-synchronous-wrappers-for-asynchronous-methods/
+ - https://channel9.msdn.com/Events/BUILD/BUILD2011/TOOL-829T
+ - https://channel9.msdn.com/Events/Speakers/Stephen-Toub
+ - https://channel9.msdn.com/Niners/Toub
+ - https://msdn.microsoft.com/en-us/library/ff963553.aspx (Parallel Programming with Microsoft .NET book)
+ - https://www.microsoft.com/en-us/download/confirmation.aspx?id=19222 (Patterns for Parallel Programming: Understanding and Applying Parallel Patterns with the .NET Framework 4 book)
+
+[Stephen Cleary]
+ - https://stephencleary.com/publications/
+ - https://msdn.microsoft.com/en-us/magazine/mt149362?author=stephen+cleary
+ - https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+ - https://msdn.microsoft.com/en-us/magazine/dn802603.aspx (Async Programming : Introduction to Async/Await on ASP.NET)
+ - https://www.youtube.com/watch?v=k81OaT_P6K0&feature=youtu.be
+
+
+[TaskCompletionSource]
+ - http://stackoverflow.com/questions/15316613/when-should-taskcompletionsourcet-be-used
+
+[Task-based Asynchronous Pattern]
+ - https://www.microsoft.com/en-us/download/details.aspx?id=19957 (Task-based Asynchronous Pattern (TAP) document)
+ - https://msdn.microsoft.com/en-us/library/jj152938(v=vs.110).aspx (https://msdn.microsoft.com/en-us/library/jj152938(v=vs.110).aspx)
+ - https://msdn.microsoft.com/en-us/library/hh873175(v=vs.110).aspx (Task-based Asynchronous Pattern (TAP))
+ - https://msdn.microsoft.com/en-us/library/hh873178(v=vs.110).aspx (Interop with Other Asynchronous Patterns and Types)
+
+[Asynchronous Programming with async and await (C#)]
+ - https://msdn.microsoft.com/en-us/library/mt674882.aspx
+ - https://docs.microsoft.com/en-us/dotnet/articles/csharp/async
+
+[Jon Skeet's]
+https://codeblog.jonskeet.uk/category/async/
+
+
+https://blogs.infosupport.com/c-5-0-async-explained-as-simple-as-possible/
+https://dotnetcodr.com/task-parallel-library/

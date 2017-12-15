@@ -1,0 +1,20 @@
+learn:
+https://github.com/aalhour/C-Sharp-Algorithms
+https://msdn.microsoft.com/en-us/library/ms379570(v=vs.80).aspx (An Extensive Examination of Data Structures Using C# 2.0)
+
+https://app.pluralsight.com/library/courses/ads-part1/table-of-contents
+https://app.pluralsight.com/library/courses/ads2/table-of-contents
+
+test:
+https://www.codingame.com
+http://www.topcoder.com/
+https://codility.com/
+http://projecteuler.net/
+http://www.spoj.com/
+https://www.hackerrank.com/dashboard
+
+
+http://stackoverflow.com/a/6639221
+https://en.wikipedia.org/wiki/Competitive_programming
+http://www.csharpstar.com/csharp-algorithms/
+
